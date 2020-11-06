@@ -51,6 +51,7 @@ img {
 .gallery li {
   min-height: 250px;
   overflow: hidden;
+  border: 1px solid;
 }
 .gallery img {
   display: block;
