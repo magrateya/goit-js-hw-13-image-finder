@@ -38,7 +38,6 @@ function onSearch(e) {
   clearGalleryContainer();
 
   fetchArticles();
-  info({ text: 'Запит успішний.', delay: 1000 });
 }
 
 function fetchArticles() {
@@ -52,6 +51,8 @@ function fetchArticles() {
     } else if (hits.length < 12) {
       info({ text: 'not much...', delay: 1000 });
       loadMoreBtn.hide();
+    } else {
+      info({ text: 'Запит успішний.', delay: 1000 });
     }
     appendGalleryMarkup(hits);
     loadMoreBtn.enable();
