@@ -2379,16 +2379,20 @@ class DataApiService {
     this.page = 1;
   }
 
-  fetchData() {
-    const BASE_URL = 'https://pixabay.com/api/';
-    const API_KEY = '18994558-99c21eb2af8503bc6443a1f41';
-    const url = `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchInput}&page=${this.page}&per_page=12&key=${API_KEY}`;
-    return fetch(url).then(responce => responce.json()).then(({
-      hits
-    }) => {
-      this.page += 1;
-      return hits;
-    });
+  async fetchData() {
+    try {
+      const BASE_URL = 'https://pixabay.com/api/';
+      const API_KEY = '18994558-99c21eb2af8503bc6443a1f41';
+      const url = `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchInput}&page=${this.page}&per_page=12&key=${API_KEY}`;
+      return await fetch(url).then(responce => responce.json()).then(({
+        hits
+      }) => {
+        this.page += 1;
+        return hits;
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   restPage() {
@@ -2533,10 +2537,6 @@ function onSearch(e) {
   dataApiService.restPage();
   clearGalleryContainer();
   fetchArticles();
-  (0, _core.info)({
-    text: 'Запит успішний.',
-    delay: 1000
-  });
 }
 
 function fetchArticles() {
@@ -2553,6 +2553,11 @@ function fetchArticles() {
         delay: 1000
       });
       loadMoreBtn.hide();
+    } else {
+      (0, _core.info)({
+        text: 'Запит успішний.',
+        delay: 1000
+      });
     }
 
     appendGalleryMarkup(hits);
@@ -2613,7 +2618,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63350" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58574" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
