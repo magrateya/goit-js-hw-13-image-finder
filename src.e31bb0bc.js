@@ -2384,12 +2384,22 @@ class DataApiService {
       const BASE_URL = 'https://pixabay.com/api/';
       const API_KEY = '18994558-99c21eb2af8503bc6443a1f41';
       const url = `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchInput}&page=${this.page}&per_page=12&key=${API_KEY}`;
-      return await fetch(url).then(responce => responce.json()).then(({
-        hits
-      }) => {
-        this.page += 1;
-        return hits;
-      });
+      const responce = await fetch(url);
+      const hitsAll = await responce.json();
+      const hits = hitsAll.hits;
+      this.page += 1;
+      return hits; // return await fetch(url)
+      //   .then(responce => responce.json())
+      //   .then(({ hits }) => {
+      //     this.page += 1;
+      //     return hits;
+      //   });
+      // return fetch(url)
+      //   .then(responce => responce.json())
+      //   .then(({ hits }) => {
+      //     this.page += 1;
+      //     return hits;
+      //   });
     } catch (error) {
       console.log(error);
     }
@@ -2618,7 +2628,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58574" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60329" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
