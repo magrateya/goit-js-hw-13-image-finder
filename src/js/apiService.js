@@ -11,12 +11,26 @@ export default class DataApiService {
 
       const url = `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchInput}&page=${this.page}&per_page=12&key=${API_KEY}`;
 
-      return await fetch(url)
-        .then(responce => responce.json())
-        .then(({ hits }) => {
-          this.page += 1;
-          return hits;
-        });
+      const responce = await fetch(url);
+      const hitsAll = await responce.json();
+      const hits = hitsAll.hits;
+
+      this.page += 1;
+      return hits;
+
+      // return await fetch(url)
+      //   .then(responce => responce.json())
+      //   .then(({ hits }) => {
+      //     this.page += 1;
+      //     return hits;
+      //   });
+
+      // return fetch(url)
+      //   .then(responce => responce.json())
+      //   .then(({ hits }) => {
+      //     this.page += 1;
+      //     return hits;
+      //   });
     } catch (error) {
       console.log(error);
     }
