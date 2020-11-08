@@ -40,25 +40,48 @@ function onSearch(e) {
   fetchArticles();
 }
 
-function fetchArticles() {
-  loadMoreBtn.disable();
-  dataApiService.fetchData().then(hits => {
-    if (hits.length === 0) {
-      error({
-        text: 'За вашим запитом нічого не знайдено, спробуйте ще.',
-        delay: 2000,
-      });
-    } else if (hits.length < 12) {
-      info({ text: 'not much...', delay: 1000 });
-      loadMoreBtn.hide();
-    } else {
-      info({ text: 'Запит успішний.', delay: 1000 });
-    }
-    appendGalleryMarkup(hits);
-    loadMoreBtn.enable();
-    scrollDown();
-  });
+async function fetchArticles() {
+  try {
+    loadMoreBtn.disable();
+    await dataApiService.fetchData().then(hits => {
+      if (hits.length === 0) {
+        error({
+          text: 'За вашим запитом нічого не знайдено, спробуйте ще.',
+          delay: 2000,
+        });
+      } else if (hits.length < 12) {
+        info({ text: 'not much...', delay: 1000 });
+        loadMoreBtn.hide();
+      } else {
+        info({ text: 'Запит успішний.', delay: 1000 });
+      }
+      appendGalleryMarkup(hits);
+      loadMoreBtn.enable();
+      scrollDown();
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
+// function fetchArticles() {
+//   loadMoreBtn.disable();
+//   dataApiService.fetchData().then(hits => {
+//     if (hits.length === 0) {
+//       error({
+//         text: 'За вашим запитом нічого не знайдено, спробуйте ще.',
+//         delay: 2000,
+//       });
+//     } else if (hits.length < 12) {
+//       info({ text: 'not much...', delay: 1000 });
+//       loadMoreBtn.hide();
+//     } else {
+//       info({ text: 'Запит успішний.', delay: 1000 });
+//     }
+//     appendGalleryMarkup(hits);
+//     loadMoreBtn.enable();
+//     scrollDown();
+//   });
+// }
 
 function appendGalleryMarkup(hits) {
   refs.galleryContainer.insertAdjacentHTML('beforeend', itemTpl(hits));

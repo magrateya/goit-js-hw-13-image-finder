@@ -5,35 +5,24 @@ export default class DataApiService {
   }
 
   async fetchData() {
-    try {
-      const BASE_URL = 'https://pixabay.com/api/';
-      const API_KEY = '18994558-99c21eb2af8503bc6443a1f41';
+    const BASE_URL = 'https://pixabay.com/api/';
+    const API_KEY = '18994558-99c21eb2af8503bc6443a1f41';
 
-      const url = `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchInput}&page=${this.page}&per_page=12&key=${API_KEY}`;
+    const url = `${BASE_URL}?image_type=photo&orientation=horizontal&q=${this.searchInput}&page=${this.page}&per_page=12&key=${API_KEY}`;
 
-      const responce = await fetch(url);
-      const hitsAll = await responce.json();
-      const hits = hitsAll.hits;
+    const responce = await fetch(url);
+    const hitsAll = await responce.json();
+    const hits = hitsAll.hits;
 
-      this.page += 1;
-      return hits;
+    this.page += 1;
+    return hits;
 
-      // return await fetch(url)
-      //   .then(responce => responce.json())
-      //   .then(({ hits }) => {
-      //     this.page += 1;
-      //     return hits;
-      //   });
-
-      // return fetch(url)
-      //   .then(responce => responce.json())
-      //   .then(({ hits }) => {
-      //     this.page += 1;
-      //     return hits;
-      //   });
-    } catch (error) {
-      console.log(error);
-    }
+    // return fetch(url)
+    //   .then(responce => responce.json())
+    //   .then(({ hits }) => {
+    //     this.page += 1;
+    //     return hits;
+    //   });
   }
 
   restPage() {
